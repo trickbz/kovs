@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>KO POC</title>
+    <script src="Scripts/knockout-3.3.0.js"></script>
+    <script src="Scripts/jquery-2.1.4.min.js"></script>
+    <script src="Scripts/ko/components.js"></script>
+</head>
+<body>
+
+    <ul data-bind="foreach: products">
+        <li>
+            <strong data-bind="text: name"></strong>
+            <div data-bind="component: { name: 'like-widget', params: { value: userRating } }"></div>
+            <!--<like-widget params="value: userRating"></like-widget>-->
+        </li>
+    </ul>
+
+    <script>
+
+        function Product(name, rating) {
+            this.name = name;
+            this.userRating = ko.observable(rating || null);
+        }
+
+        function ViewModel() {
+            this.products = [
+                new Product("Garlic bread"),
+                new Product("Pain au chocolat"),
+                new Product("Seagull spagetti", "like")
+            ];
+        }
+
+        ko.applyBindings(new ViewModel());
+
+    </script>
+
+</body>
+</html>
