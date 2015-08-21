@@ -2,37 +2,59 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>KO POC</title>
+    <!--<script src="Scripts/require.js" data-main="Scripts/bootstrapper"></script>-->
     <script src="Scripts/knockout-3.3.0.js"></script>
-    <script src="Scripts/jquery-2.1.4.min.js"></script>
-    <script src="Scripts/ko/components.js"></script>
 </head>
 <body>
 
-    <ul data-bind="foreach: products">
-        <li>
-            <strong data-bind="text: name"></strong>
-            <div data-bind="component: { name: 'like-widget', params: { value: userRating } }"></div>
-            <!--<like-widget params="value: userRating"></like-widget>-->
-        </li>
-    </ul>
+    <select data-bind="options: firstNames, 
+            optionsCaption: '---',
+            value: firstNameFilter"></select>
 
-    <script>
+    <div style="border: 1px solid black;" data-bind="foreach: filteredPersons">
+        <p>
+            <span data-bind="text: firstName"></span>
+            <span data-bind="text: lastName"></span>
+            <span data-bind="text: gender"></span>
+        </p>
+    </div>
 
-        function Product(name, rating) {
-            this.name = name;
-            this.userRating = ko.observable(rating || null);
+    <script type="text/javascript">
+
+        function Person(firstName, LastName, gender) {
+            this.firstName = ko.observable(firstName);
+            this.lastName = ko.observable(LastName);
+            this.gender = ko.observable(gender);
         }
 
         function ViewModel() {
-            this.products = [
-                new Product("Garlic bread"),
-                new Product("Pain au chocolat"),
-                new Product("Seagull spagetti", "like")
-            ];
+            var self = this;
+            self.persons = ko.observableArray([
+                new Person('John', 'Lennon', 'Male'),
+                new Person('John', 'Torn', 'Male'),
+                new Person('Tanya', 'Dmitrieva', 'Female'),
+                new Person('George', 'Tupak', 'Male'),
+                new Person('George', 'Mama', 'Male')
+            ]);
+
+            self.filteredPersons = ko.pureComputed(function () {
+                return ko.utils.arrayFilter(self.persons(), function (person) {
+                    return !(person.firstName() === self.firstNameFilter());
+                });
+            });
+
+            self.firstNames = ko.pureComputed(function () {
+                return ko.utils.arrayGetDistinctValues(ko.utils.arrayMap(self.persons(), function (person) {
+                    return person.firstName();
+                }));
+            });
+            
+            self.firstNameFilter = ko.observable();
+
         }
 
         ko.applyBindings(new ViewModel());
-
+        
     </script>
 
 </body>
