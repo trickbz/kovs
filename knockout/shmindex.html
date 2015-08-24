@@ -8,54 +8,47 @@
     <script src="Scripts/underscore.min.js"></script>
     <script src="Controllers/revenueForecastCtrl.js"></script>
     <style>
-        .parent {
-            border: 1px solid black;
-            display: flex;
-        }
-
-        .group-panel {
-            border: 1px solid black;
-            float: left;
-            width: 200px;
-            /*align-items: stretch;*/
-
-        }
-        .group-table {
-            overflow: hidden;
-            border: 1px solid black;
-        }
-
-        .group-table table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        .group-table table tr {
-        }
     </style>
 </head>
 <body>
     <div><a href="index.html">Back to the main page</a></div>
 
-    <div class="parent">
-        <div class="group-panel">Panel</div>
-        <div class="group-table">
-            <table>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                </tr>
-            </table>
-        </div>
-    </div>
+<script type="text/javascript">
 
-    <script type="text/javascript">
+    function Item(name, values, children) {
+        var self = this;
+        self.name = name;
+        self.values = values;
+        self.children = children || [];
+    }
 
-    </script>
+    var tree = [
+        new Item('Item 1', [0, 0, 0], [
+            new Item('Item 1-1', [0, 0, 0], [
+                new Item('Item 1-1-1', [1, 2, 3]),
+                new Item('Item 1-1-2', [1, 2, 3]),
+                new Item('Item 1-1-2', [4, 2, 3])
+            ])
+        ])
+    ];
+    
+    function SumRootChidlrenArrays(tree, resultArray) {
+        if (!tree.children) return resultArray;
+        for (var i = 0; i < tree.children.length; i++) {
+            var child = tree.children[i];
+            for (var j = 0; j < child.values.length; j++) {
+                var value = child.values[j];
+                resultArray[j] += value;
+            }
+            SumRootChidlrenArrays(child, resultArray);
+        }
+    }
+
+    var resultArray = [0, 0, 0];
+    result = SumRootChidlrenArrays(tree[0], resultArray);
+    console.log(resultArray);
+
+</script>
 
 </body>
 </html>
