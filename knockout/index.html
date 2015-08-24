@@ -2,59 +2,161 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>KO POC</title>
-    <!--<script src="Scripts/require.js" data-main="Scripts/bootstrapper"></script>-->
     <script src="Scripts/knockout-3.3.0.js"></script>
+    <script src="Scripts/jquery-2.1.4.min.js"></script>
+    <script src="Scripts/underscore.min.js"></script>
+    <script src="Scripts/underscore.nest.js"></script>
+    <script src="Controllers/revenueForecastCtrl.js"></script>
+    <style>
+        .aggregateColumn {
+            background-color: #eae5e5;
+            font-weight: bold;
+        }
+
+         .group-row {
+            border-bottom: 1px solid #67d060;
+            overflow: hidden;
+            width: 100%;
+            padding: 15px 0px;
+        }
+
+        .group-panel {
+            width: 200px;
+            float: left;
+            height: 100%;
+        }
+
+        .group-table-container {
+            overflow: hidden;
+        }
+
+        .group-table-container table {
+            border-collapse: collapse;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        .group-table-container table tr {
+            border-bottom: 1px solid #d8d6d6;
+        }
+
+        .group-table-container table td {
+            padding: 5px 5px;
+            /*border-right: 1px solid black;*/
+            text-align: right;
+        }
+
+        .group-table-container table td.name-column {
+            width: 150px;
+            text-align: left;
+            color: #808080;
+        }
+
+    </style>
 </head>
 <body>
 
-    <select data-bind="options: firstNames, 
-            optionsCaption: '---',
-            value: firstNameFilter"></select>
+    <div><a href="shmindex.html">Shm index html</a></div>
 
-    <div style="border: 1px solid black;" data-bind="foreach: filteredPersons">
-        <p>
-            <span data-bind="text: firstName"></span>
-            <span data-bind="text: lastName"></span>
-            <span data-bind="text: gender"></span>
-        </p>
-    </div>
+    <div data-bind="template: { name: 'treeNode1', foreach: result1 }"></div>
+
+    <script type="text/html" id="treeNode1">
+        <div class="group-row">
+            <div class="group-panel">
+                <div data-bind="style: { marginLeft: (level()-1) * 0.8 + 'em' }">
+                    <span data-bind="text: name" style="font-weight: bold"></span>
+                    <div style="color: #808080; font-size: 11pt;"><span data-bind="text: $root.groupItemsCount(level(), children().length)"></span></div>
+                </div>
+            </div>
+            <div class="group-table-container">
+                <table data-bind="foreach: table">
+                    <tr>
+                        <td data-bind="text: name" class="name-column"></td>
+                        <!-- ko foreach: values -->
+                        <td data-bind="text: $data"></td>
+                        <!-- ko if: ($index() + 1) % 3 == 0 -->
+                        <td data-bind="text: $root.sumQuarter($parent.values, $index())" class="aggregateColumn"></td>
+                        <!-- /ko -->
+                        <!-- /ko -->
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div data-bind="template: { name: 'treeNode1', foreach: children }"></div>
+    </script>
 
     <script type="text/javascript">
 
-        function Person(firstName, LastName, gender) {
-            this.firstName = ko.observable(firstName);
-            this.lastName = ko.observable(LastName);
-            this.gender = ko.observable(gender);
-        }
+        //var ops = new RevenueForecastCtrl().getData(6);
 
-        function ViewModel() {
+        function Node(name, level, children, demand, supply) {
             var self = this;
-            self.persons = ko.observableArray([
-                new Person('John', 'Lennon', 'Male'),
-                new Person('John', 'Torn', 'Male'),
-                new Person('Tanya', 'Dmitrieva', 'Female'),
-                new Person('George', 'Tupak', 'Male'),
-                new Person('George', 'Mama', 'Male')
-            ]);
-
-            self.filteredPersons = ko.pureComputed(function () {
-                return ko.utils.arrayFilter(self.persons(), function (person) {
-                    return !(person.firstName() === self.firstNameFilter());
+            self.name = ko.observable(name);
+            self.level = ko.observable(level);
+            self.demand = ko.observable(demand || []);
+            self.supply = ko.observable(supply || []);
+            self.gap = ko.computed(function () {
+                var gapValues = [];
+                _.forEach(self.demand().values, function (item, index) {
+                    gapValues.push(item - self.supply().values[index])
                 });
+                return {
+                    name: "Gap FTE",
+                    values: gapValues
+                }
             });
 
-            self.firstNames = ko.pureComputed(function () {
-                return ko.utils.arrayGetDistinctValues(ko.utils.arrayMap(self.persons(), function (person) {
-                    return person.firstName();
-                }));
-            });
-            
-            self.firstNameFilter = ko.observable();
+            self.table = ko.observableArray([self.demand, self.supply, self.gap]);
+            self.children = ko.observableArray(children);
 
+            self.isOpened = ko.observable();
+            self.isClosed = ko.computed(function () {
+                self.isOpened(!self.isOpened());
+            });
+            self.isLeaf = !self.children.length;
         }
 
-        ko.applyBindings(new ViewModel());
-        
+        var data1 = [
+            new Node('90...100%', 1,
+                [
+                    new Node('Skype', 2,
+                        [
+                            new Node('Skype Front End', 3, [], 
+                                { name: 'Demand FTE', values: [12, 1, 55, 153, 4, 40] },
+                                { name: 'Supply FTE', values: [112, 31, 5, 53, 43, 41] }
+                            ),
+                            new Node('Skype Back End', 3, [],
+                                { name: 'Demand FTE', values: [12, 1, 55, 153, 4, 40] },
+                                { name: 'Supply FTE', values: [112, 31, 5, 53, 43, 41] }
+                            )
+                        ],
+                        { name: 'Demand FTE', values: [500, 6, 115, 5, 6, 6] },
+                        { name: 'Supply FTE', values: [3, 400, 5, 3, 3, 4] }
+                    )
+                ],
+                { name: 'Demand FTE', values: [5, 5, 6, 6, 6, 600] },
+                { name: 'Supply FTE', values: [3, 3, 4, 5, 500, 6] }
+            )
+        ];
+
+        var vm = {
+            result1: ko.observableArray(data1),
+            sumQuarter: function (array, index) {
+                return _.reduce(array.slice(index - 2, index + 1), function (memo, value) {
+                    return memo + value;
+                });
+            },
+            groupItemsCount: function (level, childrenCount) {
+                var groupType;
+                if (level == 1) groupType = " account(s)";
+                else if (level == 2) groupType = " opportunitie(s)";
+                else return "";
+                return childrenCount + groupType;
+            }
+        }
+
+        ko.applyBindings(vm);
+
     </script>
 
 </body>

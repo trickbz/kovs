@@ -1,0 +1,3 @@
+﻿var RevenueForecastViewModel = function RevenueForecastViewModel() {
+    
+}
