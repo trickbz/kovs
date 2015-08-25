@@ -109,13 +109,13 @@
             self.children = ko.observableArray(children);
             self.SumRootChidlrenArrays = function (tree, resultArray, propertyName) {
                 if (tree.children().length === 0) {
-                    return tree[propertyName]().values;
+                    return tree[propertyName]();
                 }
 
                 for (var i = 0; i < tree.children().length; i++) {
                     var child = tree.children()[i];
-                    for (var j = 0; j < child[propertyName]().values.length; j++) {
-                        var demand = child[propertyName]().values[j];
+                    for (var j = 0; j < child[propertyName]().length; j++) {
+                        var demand = child[propertyName]()[j];
                         resultArray[j] += demand;
                     }
                     self.SumRootChidlrenArrays(child, resultArray, propertyName);
@@ -149,33 +149,33 @@
                     new Node('Skype', 2,
                         [
                             new Node('Skype Front End', 3, [], 
-                                { values: [12, 1, 55, 153, 4, 40] },
-                                { values: [112, 31, 5, 53, 43, 41] }
+                                [12, 1, 55, 153, 4, 40],
+                                [112, 31, 5, 53, 43, 41]
                             ),
                             new Node('Skype Back End', 3, [],
-                                { values: [15, 12, 5, 15, 43, 10] },
-                                { values: [12, 3, 51, 23, 23, 14] }
+                                [15, 12, 5, 15, 43, 10],
+                                [12, 3, 51, 23, 23, 14]
                             )
                         ],
-                        { values: [0, 0, 0, 0, 0, 0] },
-                        { values: [0, 0, 0, 0, 0, 0] }
+                        [0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0]
                     ),
                     new Node('Allocine', 2, [
                             new Node('Allocine Front End', 3, [],
-                                { values: [11, 2, 5, 6, 7, 10] },
-                                { values: [4, 1, 4, 5, 6, 11] }
+                                [11, 2, 5, 6, 7, 10],
+                                [4, 1, 4, 5, 6, 11]
                             ),
                             new Node('Allocine Back', 3, [],
-                                { values: [6, 6, 3, 7, 2, 3] },
-                                { values: [1, 5, 2, 5, 3, 7] }
+                                [6, 6, 3, 7, 2, 3],
+                                [1, 5, 2, 5, 3, 7]
                             )
                         ],
-                        { values: [0, 0, 0, 0, 0, 0] },
-                        { values: [0, 0, 0, 0, 0, 0] }
+                        [0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0]
                     )
                 ],
-                { values: [0, 0, 0, 0, 0, 0] },
-                { values: [0, 0, 0, 0, 0, 0] }
+                [0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0]
             )
         ];
 
