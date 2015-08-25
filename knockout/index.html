@@ -93,17 +93,14 @@
             var self = this;
             self.name = ko.observable(name);
             self.level = ko.observable(level);
-            self.demand = ko.observable(demand || []);
-            self.supply = ko.observable(supply || []);
+            self.demand = ko.observableArray(demand || []);
+            self.supply = ko.observableArray(supply || []);
             self.gap = ko.computed(function () {
                 var gapValues = [];
-                _.forEach(self.demand().values, function (item, index) {
-                    gapValues.push(item - self.supply().values[index]);
+                _.forEach(self.demand(), function (item, index) {
+                    gapValues.push(item - self.supply()[index]);
                 });
-                return {
-                    name: "Gap FTE",
-                    values: gapValues
-                }
+                return gapValues;
             });
 
             self.children = ko.observableArray(children);
