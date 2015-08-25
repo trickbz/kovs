@@ -10,7 +10,7 @@
     <script src="Controllers/revenueForecastCtrl.js"></script>
     <style>
         .aggregateColumn {
-            background-color: #eae5e5;
+            background-color: #eee7e7;
             font-weight: bold;
         }
 
@@ -18,7 +18,7 @@
             border-bottom: 1px solid #67d060;
             overflow: hidden;
             width: 100%;
-            padding: 15px 0;
+            padding: 15px 10px;
         }
 
         .group-panel {
@@ -52,29 +52,40 @@
                         text-align: left;
                         color: #808080;
                     }
+
+        .totalsDiv {
+            background-color: #f7fff2;
+            border-radius: 5px;
+            border: 2px solid #8AC007;
+        }
+
+        .templateDiv {
+            font-family: Arial;
+            width: 96%;
+        }
     </style>
 </head>
 <body>
 
     <div><a href="shmindex.html">Shm index html</a></div>
 
-    <div data-bind="template: { name: 'treeNode1', foreach: result1 }"></div>
+    <div data-bind="template: { name: 'treeNode1', foreach: result1 }" class="templateDiv"></div>
 
-<script type="text/html" id="treeNode1">
-    <div class="group-row">
-        <div class="group-panel">
-            <div data-bind="style: { marginLeft: (level()) * 1 + 'em' }">
-                <span data-bind="text: name" style="font-weight: bold"></span>
-                <div style="color: #808080; font-size: 11pt;"><span data-bind="text: $root.groupItemsCount(level(), children().length)"></span></div>
+    <script type="text/html" id="treeNode1">
+        <div class="group-row" data-bind="css: { totalsDiv: level() == 0 }">
+            <div class="group-panel">
+                <div data-bind="style: { marginLeft: (level()) * 1 + 'em' }">
+                    <span data-bind="text: name" style="font-weight: bold"></span>
+                    <div style="color: #808080; font-size: 11pt;"><span data-bind="text: $root.groupItemsCount(level(), children().length)"></span></div>
+                </div>
             </div>
-        </div>
-        <div class="group-table-container">
-            <table data-bind="foreach: table">
-                <tr data-bind="if: $parent.level() === 0 && $index() === 0">
-                    <td></td>
-                    <!-- ko foreach: $root.tableHeaderMonthQuarterArray -->
-                    <td data-bind="text: $data, css: { aggregateColumn: ($index() + 1) % 4 === 0 }"></td>
-                    <!-- /ko -->
+            <div class="group-table-container">
+                <table data-bind="foreach: table">
+                    <tr data-bind="if: $parent.level() === 0 && $index() === 0">
+                        <td></td>
+                        <!-- ko foreach: $root.tableHeaderMonthQuarterArray -->
+                        <td data-bind="text: $data, css: { aggregateColumn: ($index() + 1) % 4 === 0 }"></td>
+                        <!-- /ko -->
                     </tr>
                     <tr>
                         <td data-bind="text: name" class="name-column"></td>
@@ -205,20 +216,20 @@
         function ViewModel() {
             var self = this;
             self.result1 = ko.observableArray(data1);
-            self.sumQuarter = function(array, index) {
-                return _.reduce(array.slice(index - 2, index + 1), function(memo, value) {
+            self.sumQuarter = function (array, index) {
+                return _.reduce(array.slice(index - 2, index + 1), function (memo, value) {
                     return memo + value;
                 });
             };
 
-            self.startDate = ko.pureComputed(function() {
+            self.startDate = ko.pureComputed(function () {
                 return moment().startOf("quarter").toDate();
             });
-            self.endDate = ko.pureComputed(function() {
+            self.endDate = ko.pureComputed(function () {
                 return moment().add(1, "quarter").endOf("quarter").toDate();
             });
 
-            self.groupItemsCount = function(level, childrenCount) {
+            self.groupItemsCount = function (level, childrenCount) {
                 var groupType;
                 if (level === 0) return "for " + moment(self.startDate()).format("MMM YYYY") + " - " + moment(self.endDate()).format("MMM YYYY");
                 else if (level === 1) groupType = " account(s)";
@@ -227,7 +238,7 @@
                 return childrenCount + groupType;
             };
 
-            self.tableHeaderMonthQuarterArray = ko.pureComputed(function() {
+            self.tableHeaderMonthQuarterArray = ko.pureComputed(function () {
                 console.log("tableHeaderMonthQuarterArray");
                 var start = moment(self.startDate());
                 var end = moment(self.endDate());

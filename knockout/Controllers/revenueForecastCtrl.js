@@ -5,7 +5,7 @@
         var opportunities = ['Front End', 'Back End', 'Automation'];
         var accountIdPrefix = 'AccId';
         var opportunityIdPrefix = 'OppId';
-        monthCount = monthCount || 12;
+        monthCount = monthCount || 6;
         var models = [];
 
         for (var i = 0; i < accounts.length * opportunities.length; i++) {

@@ -1,0 +1,109 @@
+﻿[{
+	"account": {
+		"id": "AccId0",
+		"name": "Skype"
+	},
+	"opportunity": {
+		"id": "AccId0OppId0",
+		"name": "Front End",
+		"probability": 90
+	},
+	"demand": [1, 3, 1, 9, 10, 5, 6, 5, 10, 7, 3, 5],
+	"supply": [6, 7, 3, 4, 3, 2, 1, 6, 7, 5, 9, 7]
+}, {
+	"account": {
+		"id": "AccId1",
+		"name": "Skype"
+	},
+	"opportunity": {
+		"id": "AccId1OppId1",
+		"name": "Back End",
+		"probability": 70
+	},
+	"demand": [2, 7, 3, 6, 1, 8, 5, 10, 1, 10, 3, 3],
+	"supply": [4, 7, 5, 3, 9, 2, 4, 6, 5, 9, 3, 8]
+}, {
+	"account": {
+		"id": "AccId2",
+		"name": "Skype"
+	},
+	"opportunity": {
+		"id": "AccId2OppId2",
+		"name": "Automation",
+		"probability": 70
+	},
+	"demand": [4, 10, 1, 9, 4, 3, 8, 5, 2, 2, 4, 2],
+	"supply": [9, 6, 1, 2, 9, 6, 4, 2, 6, 10, 7, 10]
+}, {
+	"account": {
+		"id": "AccId3",
+		"name": "Allocine"
+	},
+	"opportunity": {
+		"id": "AccId3OppId0",
+		"name": "Front End",
+		"probability": 90
+	},
+	"demand": [3, 9, 4, 6, 10, 3, 3, 2, 8, 10, 9, 4],
+	"supply": [10, 10, 8, 9, 8, 3, 8, 6, 7, 5, 10, 4]
+}, {
+	"account": {
+		"id": "AccId4",
+		"name": "Allocine"
+	},
+	"opportunity": {
+		"id": "AccId4OppId1",
+		"name": "Back End",
+		"probability": 70
+	},
+	"demand": [3, 3, 6, 5, 1, 1, 8, 3, 9, 6, 3, 6],
+	"supply": [7, 3, 8, 10, 9, 10, 4, 4, 7, 2, 6, 6]
+}, {
+	"account": {
+		"id": "AccId5",
+		"name": "Allocine"
+	},
+	"opportunity": {
+		"id": "AccId5OppId2",
+		"name": "Automation",
+		"probability": 70
+	},
+	"demand": [8, 2, 3, 4, 3, 1, 3, 8, 8, 6, 1, 4],
+	"supply": [7, 9, 3, 5, 7, 2, 1, 9, 5, 8, 5, 3]
+}, {
+	"account": {
+		"id": "AccId6",
+		"name": "HP"
+	},
+	"opportunity": {
+		"id": "AccId6OppId0",
+		"name": "Front End",
+		"probability": 90
+	},
+	"demand": [7, 2, 3, 10, 6, 8, 9, 1, 1, 8, 2, 2],
+	"supply": [9, 4, 6, 7, 2, 9, 9, 10, 5, 6, 2, 6]
+}, {
+	"account": {
+		"id": "AccId7",
+		"name": "HP"
+	},
+	"opportunity": {
+		"id": "AccId7OppId1",
+		"name": "Back End",
+		"probability": 70
+	},
+	"demand": [5, 9, 9, 1, 4, 6, 7, 1, 9, 6, 6, 1],
+	"supply": [8, 3, 8, 1, 2, 4, 6, 5, 8, 4, 1, 1]
+}, {
+	"account": {
+		"id": "AccId8",
+		"name": "HP"
+	},
+	"opportunity": {
+		"id": "AccId8OppId2",
+		"name": "Automation",
+		"probability": 70
+	},
+	"demand": [3, 5, 2, 8, 4, 1, 6, 10, 10, 9, 6, 1],
+	"supply": [9, 2, 5, 3, 4, 7, 2, 4, 1, 9, 4, 8]
+}]

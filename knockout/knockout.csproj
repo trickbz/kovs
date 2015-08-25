@@ -89,6 +89,7 @@
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="Scripts\underscore.min.map" />
     <Content Include="Scripts\underscore.nest.js" />
+    <Content Include="examples\jsonFormatExample.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
