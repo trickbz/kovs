@@ -15,12 +15,7 @@
         });
 
         self.children = ko.observableArray(children);
-        self.metrics = ko.observableArray([
-            new RevenueForecastMetric("demand", "Demand FTE", true),
-            new RevenueForecastMetric("supply", "Supply FTE", true),
-            new RevenueForecastMetric("gap", "Gap FTE", true)
-        ]);
-
+        self.isVisible = ko.observable(true);
         self.table = ko.computed(function () {
             var resultMetrics = [];
             for (var i = 0; i < self.metrics().length; i++) {
@@ -32,11 +27,21 @@
             return resultMetrics;
         });
 
-        self.isOpened = ko.observable();
-        self.isClosed = ko.computed(function () {
-            self.isOpened(!self.isOpened());
+        self.isExpanded = ko.observable();
+        self.isCollapsed = ko.computed(function () {
+            return !self.isExpanded();
         });
-        self.isLeaf = !self.children.length;
+        self.toggleOpen = function () {
+            self.isExpanded(!self.isExpanded());
+        }
+        self.isLeaf = ko.pureComputed(function () {
+            return !self.children().length;
+        });
+        self.toggleImage = ko.pureComputed(function() {
+            return self.isExpanded() ?
+                "Images/minus.png" :
+                "Images/plus.png";
+        });
 
     }
 
@@ -55,5 +60,12 @@
         }
         return resultArray;
     }
+
+    RevenueForecastNode.prototype.metrics = ko.observableArray([
+        new RevenueForecastMetric("demand", "Demand FTE", true),
+        new RevenueForecastMetric("supply", "Supply FTE", true),
+        new RevenueForecastMetric("gap", "Gap FTE", true)
+    ]);
+
     return RevenueForecastNode;
 }).call();

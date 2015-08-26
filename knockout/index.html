@@ -3,7 +3,7 @@
 <head>
     <title>KO POC</title>
 
-    <link rel="stylesheet" type="text/css" href="Styles/revenueForecast.css"/>
+    <link rel="stylesheet" type="text/css" href="Styles/revenueForecast.css" />
 
     <script src="Scripts/knockout-3.3.0.js"></script>
     <script src="Scripts/jquery-2.1.4.min.js"></script>
@@ -26,6 +26,7 @@
         <div class="group-row" data-bind="css: { totalsDiv: level() == 0 }">
             <div class="group-panel">
                 <div data-bind="style: { marginLeft: (level()) * 1 + 'em' }">
+                    <img class="toggleImage" data-bind="attr: { src: toggleImage }, click: toggleOpen, visible: !isLeaf()" />
                     <span data-bind="text: name" style="font-weight: bold"></span>
                     <div style="color: #808080; font-size: 11pt;"><span data-bind="text: $root.groupItemsCount(level(), children().length)"></span></div>
                 </div>
@@ -50,7 +51,8 @@
                 </table>
             </div>
         </div>
-        <div data-bind="template: { name: 'treeNode1', foreach: children }"></div>
+        <div data-bind="template: { name: 'treeNode1', foreach: children }, visible: isExpanded"></div>
+
     </script>
 
     <script type="text/javascript">

@@ -54,3 +54,7 @@
     font-family: Arial;
     width: 96%;
 }
+
+img.toggleImage {
+    cursor: pointer;
+}

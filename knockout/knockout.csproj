@@ -76,6 +76,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Controllers\revenueForecastCtrl.js" />
+    <Content Include="Images\minus.png" />
+    <Content Include="Images\plus.png" />
+    <Content Include="Images\toggle.png" />
     <Content Include="Models\revenueForecastMetric.js" />
     <Content Include="Models\revenueForecastNode.js" />
     <Content Include="Scripts\bootstrapper.js" />
