@@ -72,6 +72,11 @@
     <div data-bind="template: { name: 'treeNode1', foreach: result1 }" class="templateDiv"></div>
 
     <script type="text/html" id="treeNode1">
+
+        <div class="visibilityCheckboxesContainer" data-bind="foreach: $parent.metrics">
+            <label><input type="checkbox" /> <span data-bind="text: name"></span></label>
+        </div>
+
         <div class="group-row" data-bind="css: { totalsDiv: level() == 0 }">
             <div class="group-panel">
                 <div data-bind="style: { marginLeft: (level()) * 1 + 'em' }">
@@ -104,7 +109,12 @@
 
     <script type="text/javascript">
 
-        //var ops = new RevenueForecastCtrl().getData(6);
+        function Metric(name, isVisible) {
+            var self = this;
+            self.name = name;
+            self.isVisible = ko.observable(isVisible || true);
+            self.switchVisibility = function () { self.isVisible(!isVisible()); }
+        }
 
         function Node(name, level, children, demand, supply) {
             var self = this;
@@ -137,12 +147,17 @@
                 return resultArray;
             }
 
+            self.metrics = ko.observableArray([
+                new Metric("demand"),
+                new Metric("supply"),
+                new Metric("gap")
+            ]);
+
             self.table = ko.computed(function () {
-                var metrics = ["demand", "supply", "gap"];
                 var metricNames = ["Demand FTE", "Supply FTE", "Gap FTE"];
                 var resultMetrics = [];
-                for (var i = 0; i < metrics.length; i++) {
-                    var metricName = metrics[i];
+                for (var i = 0; i < self.metrics().length; i++) {
+                    var metricName = self.metrics()[i].name;
                     var metricComptutedValues = [0, 0, 0, 0, 0, 0];
                     metricComptutedValues = self.SumRootChidlrenArrays(self, metricComptutedValues, metricName);
                     resultMetrics.push({ name: metricNames[i], values: metricComptutedValues });
@@ -156,6 +171,8 @@
             });
             self.isLeaf = !self.children.length;
         }
+
+
 
         var data1 = [
             new Node("Total", 0, [
