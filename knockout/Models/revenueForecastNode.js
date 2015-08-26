@@ -15,7 +15,6 @@
         });
 
         self.children = ko.observableArray(children);
-        self.isVisible = ko.observable(true);
         self.table = ko.computed(function () {
             var resultMetrics = [];
             for (var i = 0; i < self.metrics().length; i++) {

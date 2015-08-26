@@ -24,8 +24,8 @@
         });
     }
 
-    RevenueForecastVm.prototype.sumQuarter = function(array, index) {
-        return _.reduce(array.slice(index - 2, index + 1), function(memo, value) {
+    RevenueForecastVm.prototype.sumQuarter = function (array, index) {
+        return _.reduce(array.slice(index - 2, index + 1), function (memo, value) {
             return memo + value;
         });
     }
@@ -33,8 +33,8 @@
     RevenueForecastVm.prototype.groupItemsCount = function (level, childrenCount) {
         var groupType;
         if (level === 0) return "for " + moment(this.startDate()).format("MMM YYYY") + " - " + moment(this.endDate()).format("MMM YYYY");
-        else if (level === 1) groupType = " account(s)";
-        else if (level === 2) groupType = " opportunitie(s)";
+        else if (level === 1) groupType = childrenCount == 1 ? " account" : " accounts";
+        else if (level === 2) groupType = childrenCount == 1 ? " opportunity" : " opportunities";
         else return "";
         return childrenCount + groupType;
     };
