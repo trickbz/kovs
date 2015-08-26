@@ -2,7 +2,7 @@
 
     function RevenueForecastVm() {
         var self = this;
-        self.result1 = ko.observableArray(new RevenueForecastCtrl().getData1());
+        self.tree = ko.observableArray(new RevenueForecastCtrl().getVmTreeMockup());
         self.startDate = ko.pureComputed(function () {
             return moment().startOf("quarter").toDate();
         });

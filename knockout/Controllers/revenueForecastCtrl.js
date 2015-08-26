@@ -1,7 +1,7 @@
 ﻿var RevenueForecastCtrl = (function () {
     function RevenueForecastCtrl() { }
 
-    RevenueForecastCtrl.prototype.getData = function (monthCount) {
+    RevenueForecastCtrl.prototype.getJsonMockup = function (monthCount) {
         var accounts = ["Skype", "Allocine", "HP"];
         var opportunities = ["Front End", "Back End", "Automation"];
         var accountIdPrefix = "AccId";
@@ -34,7 +34,7 @@
         return models;
     }
 
-    RevenueForecastCtrl.prototype.getData1 = function() {
+    RevenueForecastCtrl.prototype.getVmTreeMockup = function() {
         return [
             new RevenueForecastNode("Total", 0, [
                 new RevenueForecastNode("90...100%", 1,
