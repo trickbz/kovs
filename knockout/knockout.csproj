@@ -76,6 +76,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Controllers\revenueForecastCtrl.js" />
+    <Content Include="Models\revenueForecastMetric.js" />
+    <Content Include="Models\revenueForecastNode.js" />
     <Content Include="Scripts\bootstrapper.js" />
     <Content Include="Scripts\domReady.js" />
     <Content Include="Scripts\indexViewModel.js" />
@@ -111,6 +113,8 @@
     <Content Include="Scripts\text.js" />
     <Content Include="Scripts\utils\createRevenueForecastModel.js" />
     <Content Include="shmindex.html" />
+    <Content Include="Styles\revenueForecast.css" />
+    <Content Include="ViewModels\revenueForecastVm.js" />
     <Content Include="Web.config" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
   </ItemGroup>
@@ -119,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\json\" />
+    <Folder Include="Templates\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
