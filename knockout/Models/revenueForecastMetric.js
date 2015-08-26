@@ -1,10 +1,9 @@
 ﻿var RevenueForecastMetric = (function () {
 
-    function RevenueForecastMetric(name, caption, isVisible) {
+    function RevenueForecastMetric(name, caption) {
         var self = this;
         self.name = name;
         self.caption = caption;
-        self.isVisible = ko.observable(isVisible || true);
     }
 
     RevenueForecastMetric.prototype.switchVisibility = function () {

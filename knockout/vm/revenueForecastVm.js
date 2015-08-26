@@ -2,7 +2,8 @@
 
     function RevenueForecastVm() {
         var self = this;
-        self.tree = ko.observableArray(new RevenueForecastCtrl().getVmTreeMockup());
+        self.metricsData = new RevenueForecastCtrl().getVmTreeMockup();
+        self.tree = ko.observableArray(self.metricsData);
         self.startDate = ko.pureComputed(function () {
             return moment().startOf("quarter").toDate();
         });
@@ -10,7 +11,6 @@
             return moment().add(1, "quarter").endOf("quarter").toDate();
         });
         self.tableHeaderMonthQuarterArray = ko.pureComputed(function () {
-            console.log("tableHeaderMonthQuarterArray");
             var start = moment(self.startDate());
             var end = moment(self.endDate());
             var headers = [];
@@ -38,6 +38,14 @@
         else return "";
         return childrenCount + groupType;
     };
+
+    RevenueForecastVm.prototype.expandAll = function () {
+        this.metricsData[0].expandChildren();
+    }
+
+    RevenueForecastVm.prototype.collapseAll = function () {
+        this.metricsData[0].collapseChildren();
+    }
 
     return RevenueForecastVm;
 }).call();

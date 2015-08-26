@@ -1,5 +1,5 @@
 ﻿.aggregateColumn {
-    background-color: #eee7e7;
+    background-color: #eef1ef;
     font-weight: bold;
 }
 
@@ -20,28 +20,30 @@
     overflow: hidden;
 }
 
-.group-table-container > table {
-    border-collapse: collapse;
-    width: 100%;
-    table-layout: fixed;
-}
+    .group-table-container > table {
+        border-collapse: collapse;
+        width: 100%;
+        table-layout: fixed;
+        position: relative;
+    }
 
-.group-table-container table tr {
-    border-bottom: 1px solid #d8d6d6;
-}
-
-.group-table-container table td {
-    padding: 5px 5px;
-    /*border-right: 1px solid black;*/
     
-    text-align: right;
-}
 
-.group-table-container table td.name-column {
-    width: 150px;
-    text-align: left;
-    color: #808080;
-}
+    .group-table-container table tr {
+        border-bottom: 1px solid #d8d6d6;
+        border-top: 1px solid #d8d6d6;
+    }
+
+    .group-table-container table td {
+        padding: 5px 5px;
+        text-align: right;
+    }
+
+        .group-table-container table td.name-column {
+            width: 150px;
+            text-align: left;
+            color: #808080;
+        }
 
 .totalsDiv {
     background-color: #f7fff2;
@@ -50,11 +52,25 @@
     border: 2px solid #8AC007;
 }
 
-.templateDiv {
+.revenueForecastTableDiv {
     font-family: Arial;
-    width: 96%;
+    margin: 10px;
 }
 
 img.toggleImage {
     cursor: pointer;
+}
+
+.buttons-panel {
+    margin: 10px;
+}
+
+.node-title {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.childrenCountLabel {
+    color: #808080;
+    font-size: 11pt;
 }

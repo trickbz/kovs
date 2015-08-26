@@ -75,26 +75,40 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Controllers\revenueForecastCtrl.js" />
-    <Content Include="Images\minus.png" />
-    <Content Include="Images\plus.png" />
-    <Content Include="Images\toggle.png" />
-    <Content Include="Models\revenueForecastMetric.js" />
-    <Content Include="Models\revenueForecastNode.js" />
-    <Content Include="Scripts\bootstrapper.js" />
-    <Content Include="Scripts\domReady.js" />
-    <Content Include="Scripts\indexViewModel.js" />
-    <Content Include="Scripts\ko\components.js" />
+    <Content Include="models\revenueForecastComputedMetric.js" />
+    <Content Include="styles\bootstrap-theme.css" />
+    <Content Include="styles\bootstrap-theme.min.css" />
+    <Content Include="styles\bootstrap.css" />
+    <Content Include="styles\bootstrap.min.css" />
+    <Content Include="controllers\revenueForecastCtrl.js" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="images\minus.png" />
+    <Content Include="images\plus.png" />
+    <Content Include="images\toggle.png" />
+    <Content Include="models\revenueForecastMetric.js" />
+    <Content Include="models\revenueForecastNode.js" />
+    <Content Include="scripts\bootstrap.js" />
+    <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="scripts\bootstrapper.js" />
+    <Content Include="scripts\domReady.js" />
+    <Content Include="scripts\indexViewModel.js" />
+    <Content Include="scripts\ko\components.js" />
     <Content Include="packages.config" />
-    <Content Include="Scripts\moment-with-locales.js" />
-    <Content Include="Scripts\moment-with-locales.min.js" />
-    <Content Include="Scripts\moment.js" />
-    <Content Include="Scripts\moment.min.js" />
-    <Content Include="Scripts\underscore.js" />
-    <Content Include="Scripts\underscore.min.js" />
-    <Content Include="Scripts\underscore.min.map" />
-    <Content Include="Scripts\underscore.nest.js" />
+    <Content Include="scripts\moment-with-locales.js" />
+    <Content Include="scripts\moment-with-locales.min.js" />
+    <Content Include="scripts\moment.js" />
+    <Content Include="scripts\moment.min.js" />
+    <Content Include="scripts\underscore.js" />
+    <Content Include="scripts\underscore.min.js" />
+    <Content Include="scripts\underscore.min.map" />
+    <Content Include="scripts\underscore.nest.js" />
     <Content Include="examples\jsonFormatExample.json" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="styles\bootstrap.css.map" />
+    <Content Include="styles\bootstrap-theme.css.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -103,29 +117,29 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <None Include="scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="index.html" />
-    <Content Include="Scripts\jquery-2.1.4.js" />
-    <Content Include="Scripts\jquery-2.1.4.min.js" />
-    <Content Include="Scripts\knockout-3.3.0.debug.js" />
-    <Content Include="Scripts\knockout-3.3.0.js" />
-    <Content Include="Scripts\ko\templates\revenueForecastTableTemplate.html" />
-    <Content Include="Scripts\ko\viewModels\revenueForecastViewModel.js" />
-    <Content Include="Scripts\r.js" />
-    <Content Include="Scripts\require.js" />
-    <Content Include="Scripts\text.js" />
-    <Content Include="Scripts\utils\createRevenueForecastModel.js" />
+    <Content Include="scripts\jquery-2.1.4.js" />
+    <Content Include="scripts\jquery-2.1.4.min.js" />
+    <Content Include="scripts\knockout-3.3.0.debug.js" />
+    <Content Include="scripts\knockout-3.3.0.js" />
+    <Content Include="scripts\ko\templates\revenueForecastTableTemplate.html" />
+    <Content Include="scripts\ko\viewModels\revenueForecastViewModel.js" />
+    <Content Include="scripts\r.js" />
+    <Content Include="scripts\require.js" />
+    <Content Include="scripts\text.js" />
+    <Content Include="scripts\utils\createRevenueForecastModel.js" />
     <Content Include="shmindex.html" />
-    <Content Include="Styles\revenueForecast.css" />
-    <Content Include="ViewModels\revenueForecastVm.js" />
+    <Content Include="styles\revenueForecast.css" />
+    <Content Include="utils\revenueForecastHelper.js" />
+    <Content Include="vm\revenueForecastVm.js" />
     <Content Include="Web.config" />
-    <Content Include="Scripts\jquery-2.1.4.min.map" />
+    <Content Include="scripts\jquery-2.1.4.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Scripts\json\" />
     <Folder Include="Templates\" />
   </ItemGroup>
   <PropertyGroup>

@@ -21,27 +21,34 @@
                 var metricName = self.metrics()[i].name;
                 var metricComptutedValues = [0, 0, 0, 0, 0, 0];
                 metricComptutedValues = self.SumRootChidlrenArrays(self, metricComptutedValues, metricName);
-                resultMetrics.push({ name: self.metrics()[i].caption, values: metricComptutedValues });
+                resultMetrics.push(new RevenueForecastComputedMetric(self.metrics()[i].caption, metricComptutedValues));
             }
             return resultMetrics;
         });
 
-        self.isExpanded = ko.observable();
+        self.isExpanded = ko.observable(false);
+
         self.isCollapsed = ko.computed(function () {
             return !self.isExpanded();
         });
+
         self.toggleOpen = function () {
             self.isExpanded(!self.isExpanded());
         }
+
+        self.isRoot = ko.pureComputed(function () {
+            return self.level() == 0;
+        });
+
         self.isLeaf = ko.pureComputed(function () {
             return !self.children().length;
         });
-        self.toggleImage = ko.pureComputed(function() {
-            return self.isExpanded() ?
-                "Images/minus.png" :
-                "Images/plus.png";
-        });
 
+        self.toggleImage = ko.pureComputed(function () {
+            return self.isExpanded() ?
+                "images/minus.png" :
+                "images/plus.png";
+        });
     }
 
     RevenueForecastNode.prototype.SumRootChidlrenArrays = function (tree, resultArray, propertyName) {
@@ -61,10 +68,28 @@
     }
 
     RevenueForecastNode.prototype.metrics = ko.observableArray([
-        new RevenueForecastMetric("demand", "Demand FTE", true),
-        new RevenueForecastMetric("supply", "Supply FTE", true),
-        new RevenueForecastMetric("gap", "Gap FTE", true)
+        new RevenueForecastMetric("demand", "Demand FTE"),
+        new RevenueForecastMetric("supply", "Supply FTE"),
+        new RevenueForecastMetric("gap", "Gap FTE")
     ]);
+
+    RevenueForecastNode.prototype.expandChildren = function () {
+        this.isExpanded(true);
+        for (var i = 0; i < this.children().length; i++) {
+            this.children()[i].expandChildren();
+        }
+    };
+
+    RevenueForecastNode.prototype.collapseChildren = function () {
+        this.isExpanded(false);
+        for (var i = 0; i < this.children().length; i++) {
+            this.children()[i].collapseChildren();
+        }
+    };
+
+    RevenueForecastNode.prototype.groupCaptionIndention = function () {
+        return (this.level()) + 'em';
+    }
 
     return RevenueForecastNode;
 }).call();

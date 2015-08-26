@@ -3,48 +3,54 @@
 <head>
     <title>KO POC</title>
 
-    <link rel="stylesheet" type="text/css" href="Styles/revenueForecast.css" />
+    <link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="styles/revenueForecast.css" />
 
-    <script src="Scripts/knockout-3.3.0.js"></script>
-    <script src="Scripts/jquery-2.1.4.min.js"></script>
-    <script src="Scripts/underscore.min.js"></script>
-    <script src="Scripts/underscore.nest.js"></script>
-    <script src="Scripts/moment.min.js"></script>
-    <script src="Controllers/revenueForecastCtrl.js"></script>
-    <script src="Models/revenueForecastMetric.js"></script>
-    <script src="Models/revenueForecastNode.js"></script>
-    <script src="ViewModels/revenueForecastVm.js"></script>
+    <script src="scripts/knockout-3.3.0.js"></script>
+    <script src="scripts/jquery-2.1.4.min.js"></script>
+    <script src="scripts/underscore.min.js"></script>
+    <script src="scripts/underscore.nest.js"></script>
+    <script src="scripts/moment.min.js"></script>
+    <script src="controllers/revenueForecastCtrl.js"></script>
+    <script src="models/revenueForecastMetric.js"></script>
+    <script src="models/revenueForecastComputedMetric.js"></script>
+    <script src="models/revenueForecastNode.js"></script>
+    <script src="vm/revenueForecastVm.js"></script>
 </head>
 <body>
 
     <div><a href="shmindex.html">Shm index html</a></div>
 
-    <div data-bind="template: { name: 'treeNode1', foreach: tree }" class="templateDiv"></div>
+    <div class="buttons-panel">
+        <button class="btn" data-bind="click: expandAll">Expand All</button>
+        <button class="btn" data-bind="click: collapseAll">Collapse All</button>
+    </div>
+
+    <div class="revenueForecastTableDiv" data-bind="template: { name: 'treeNode1', foreach: tree }"></div>
 
     <script type="text/html" id="treeNode1">
-
-        <div class="group-row" data-bind="css: { totalsDiv: level() == 0 }">
+        <div class="group-row" data-bind="css: { totalsDiv: isRoot() }">
             <div class="group-panel">
-                <div data-bind="style: { marginLeft: (level()) * 1 + 'em' }">
+                <div data-bind="style: { marginLeft: groupCaptionIndention() }">
                     <img class="toggleImage" data-bind="attr: { src: toggleImage }, click: toggleOpen, visible: !isLeaf()" />
-                    <span data-bind="text: name" style="font-weight: bold"></span>
-                    <div style="color: #808080; font-size: 11pt;"><span data-bind="text: $root.groupItemsCount(level(), children().length)"></span></div>
+                    <span class="node-title" data-bind="text: name, click: toggleOpen"></span>
+                    <div class="childrenCountLabel"><span data-bind="text: $root.groupItemsCount(level(), children().length)"></span></div>
                 </div>
             </div>
             <div class="group-table-container">
-                <table data-bind="foreach: table">
-                    <tr data-bind="if: $parent.level() === 0 && $index() === 0">
+                <table data-bind="foreach: table, style: { backgroundColor: isRoot() ? 'transparent' : '#fefafa' }">
+                    <tr data-bind="if: $parent.isRoot() && $index() === 0">
                         <td></td>
                         <!-- ko foreach: $root.tableHeaderMonthQuarterArray -->
                         <td data-bind="text: $data, css: { aggregateColumn: ($index() + 1) % 4 === 0 }"></td>
                         <!-- /ko -->
                     </tr>
                     <tr>
-                        <td data-bind="text: name" class="name-column"></td>
+                        <td data-bind="text: caption" class="name-column"></td>
                         <!-- ko foreach: values -->
                         <td data-bind="text: $data"></td>
                         <!-- ko if: ($index() + 1) % 3 == 0 -->
-                        <td data-bind="text: $root.sumQuarter($parent.values, $index())" class="aggregateColumn"></td>
+                        <td class="aggregateColumn" data-bind="text: $root.sumQuarter($parent.values, $index())"></td>
                         <!-- /ko -->
                         <!-- /ko -->
                     </tr>
@@ -52,7 +58,6 @@
             </div>
         </div>
         <div data-bind="template: { name: 'treeNode1', foreach: children }, visible: isExpanded"></div>
-
     </script>
 
     <script type="text/javascript">
