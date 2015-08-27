@@ -23,15 +23,18 @@
                 probability: i % 3 ? 70 : 90
             };
 
-            model.demand = [];
-            model.supply = [];
+            model.data = {
+                demand: [],
+                supply: []
+            };
+
             for (var j = 0; j < monthCount; j++) {
-                model.demand[j] = Math.floor((Math.random() * 10) + 1);
-                model.supply[j] = Math.floor((Math.random() * 10) + 1);
+                model.data.demand[j] = Math.floor((Math.random() * 10) + 1);
+                model.data.supply[j] = Math.floor((Math.random() * 10) + 1);
             }
             models.push(model);
         }
-        return models;
+        return JSON.stringify(models);
     }
 
     RevenueForecastCtrl.prototype.getVmTreeMockup = function() {

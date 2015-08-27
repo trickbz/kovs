@@ -1,8 +1,8 @@
 ﻿var RevenueForecastVm = (function () {
 
-    function RevenueForecastVm() {
+    function RevenueForecastVm(metricsData) {
         var self = this;
-        self.metricsData = new RevenueForecastCtrl().getVmTreeMockup();
+        self.metricsData = metricsData || new RevenueForecastCtrl().getVmTreeMockup();
         self.tree = ko.observableArray(self.metricsData);
         self.startDate = ko.pureComputed(function () {
             return moment().startOf("quarter").toDate();
@@ -33,8 +33,8 @@
     RevenueForecastVm.prototype.groupItemsCount = function (level, childrenCount) {
         var groupType;
         if (level === 0) return "for " + moment(this.startDate()).format("MMM YYYY") + " - " + moment(this.endDate()).format("MMM YYYY");
-        else if (level === 1) groupType = childrenCount == 1 ? " account" : " accounts";
-        else if (level === 2) groupType = childrenCount == 1 ? " opportunity" : " opportunities";
+        else if (level === 1) groupType = childrenCount === 1 ? " account" : " accounts";
+        else if (level === 2) groupType = childrenCount === 1 ? " opportunity" : " opportunities";
         else return "";
         return childrenCount + groupType;
     };

@@ -1,11 +1,16 @@
 ﻿var RevenueForecastNode = (function () {
 
-    function RevenueForecastNode(name, level, children, demand, supply) {
+    function RevenueForecastNode(name, level, children, demand, supply, id, probability) {
         var self = this;
+
         self.name = ko.observable(name);
         self.level = ko.observable(level);
+        self.children = ko.observableArray(children);
         self.demand = ko.observableArray(demand || []);
         self.supply = ko.observableArray(supply || []);
+        self.id = id;
+        self.probability = probability;
+
         self.gap = ko.computed(function () {
             var gapValues = [];
             _.forEach(self.demand(), function (item, index) {
@@ -14,7 +19,7 @@
             return gapValues;
         });
 
-        self.children = ko.observableArray(children);
+        
         self.table = ko.computed(function () {
             var resultMetrics = [];
             for (var i = 0; i < self.metrics().length; i++) {
@@ -32,12 +37,8 @@
             return !self.isExpanded();
         });
 
-        self.toggleOpen = function () {
-            self.isExpanded(!self.isExpanded());
-        }
-
         self.isRoot = ko.pureComputed(function () {
-            return self.level() == 0;
+            return self.level() === 0;
         });
 
         self.isLeaf = ko.pureComputed(function () {
@@ -87,8 +88,12 @@
         }
     };
 
-    RevenueForecastNode.prototype.groupCaptionIndention = function () {
-        return (this.level()) + 'em';
+    RevenueForecastNode.prototype.groupCaptionIndention = function() {
+        return (this.level()) + "em";
+    };
+
+    RevenueForecastNode.prototype.toggleOpen = function () {
+        this.isExpanded(!this.isExpanded());
     }
 
     return RevenueForecastNode;
