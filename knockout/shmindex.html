@@ -10,25 +10,38 @@
     <script src="Controllers/revenueForecastCtrl.js"></script>
     <script src="scripts/shmindex.js"></script>
     <style>
-
-         
     </style>
 </head>
 <body>
 
-<div>
-    <a href="index.html">Back to the main page</a>
-</div>
+    <div>
+        <a href="index.html">Back to the main page</a>
+    </div>
 
+    <div data-bind="template: { name: 'template', foreach: tree }"></div>
 
+    <script type="text/html" id="template">
+        <div data-bind="style: { marginLeft: level + 'em' }">
+            <span data-bind="text: caption"></span>
+        </div>
 
+        <div data-bind="template: { name: 'template', foreach: children }"></div>
+    </script>
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
-    var sh = new Shmindex();
-    console.log(sh.flatData);
+        var sh = new Shmindex();
+        var tree = sh.treeFromFlat();
+        console.log(tree);
 
-</script>
+        function ViewModel(tree) {
+            var self = this;
+            self.tree = tree;
+        }
+
+        ko.applyBindings(new ViewModel(tree));
+
+    </script>
 
 </body>
 </html>
