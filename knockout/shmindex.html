@@ -30,9 +30,19 @@
 
     <script type="text/javascript">
 
+        var arr = [
+            { name: "one", order: 2 },
+            { name: "three", order: 1 },
+            { name: "two", order: 3 }
+        ];
+
+        arr = _.sortBy(arr, 'order');
+        //arr.reverse();
+
+        console.log(arr);
+
         var sh = new Shmindex();
         var tree = sh.treeFromFlat();
-        console.log(tree);
 
         function ViewModel(tree) {
             var self = this;

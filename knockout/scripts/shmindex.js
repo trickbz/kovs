@@ -97,8 +97,10 @@ var Shmindex = (function () {
                             );
                             nodeAccount.children.push(nodeOpportunity);
                         }
+                        nodeAccount.children = _.sortBy(nodeAccount.children, "caption");
                     }
                 }
+                nodeProbability.children = _.sortBy(nodeProbability.children, "caption");
             }
         }
         return nodeRoot;
