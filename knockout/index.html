@@ -27,6 +27,10 @@
         <button class="btn" data-bind="click: collapseAll">Collapse All</button>
     </div>
 
+    <div id="checkboxes" data-bind="foreach: metrics">
+        <label><input type="checkbox" data-bind="checked: isVisible" /><span data-bind="text: ' ' + caption"></span></label>
+    </div>
+
     <div class="revenueForecastTableDiv" data-bind="template: { name: 'treeNode1', foreach: tree }"></div>
 
     <script type="text/html" id="treeNode1">
@@ -46,7 +50,7 @@
                         <td data-bind="text: $data, css: { aggregateColumn: ($index() + 1) % 4 === 0 }"></td>
                         <!-- /ko -->
                     </tr>
-                    <tr>
+                    <tr data-bind="visible: isVisible">
                         <td data-bind="text: caption" class="name-column"></td>
                         <!-- ko foreach: values -->
                         <td data-bind="text: $data"></td>

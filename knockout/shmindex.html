@@ -8,67 +8,25 @@
     <script src="Scripts/underscore.min.js"></script>
     <script src="Scripts/moment.min.js"></script>
     <script src="Controllers/revenueForecastCtrl.js"></script>
+    <script src="scripts/shmindex.js"></script>
     <style>
-        .open {
-            font-weight: normal;
-        }
-        .close {
-            font-weight: bold;
-        }
-        li.open > ul { display: block; }
-        li.closed > ul { display: none }
+
          
     </style>
 </head>
 <body>
+
 <div>
     <a href="index.html">Back to the main page</a>
 </div>
 
-<div class="tree"> 
-    <ul data-bind="template: { name: 'treeNodeTemplate', foreach: tree }"></ul>
-</div>
 
-<script id="treeNodeTemplate" type="text/html">
-    <li data-bind="css: { open: isExpanded, closed: isCollapsed }">
-        <span data-bind="text: name,
-                            click: toggleExpand"></span>
-        <ul data-bind="template: { name: 'treeNodeTemplate', foreach: children }"></ul>
-    </li>
-    </script>
+
 
 <script type="text/javascript">
 
-    function Node(name, level, children) {
-        var self = this;
-        self.name = name;
-        self.children = children || [];
-        self.level = level;
-        self.isExpanded = ko.observable();
-        self.isCollapsed = ko.computed(function () {
-            return !self.isExpanded();
-        });
-        self.isLeaf = !self.children.length;
-        self.toggleExpand = function() {
-            self.isExpanded(!self.isExpanded());
-        };
-    }
-
-    function ViewModel() {
-        var self = this;
-        self.tree = [
-            new Node("Skype", 1, [
-                new Node("Skype Front End", 2, [
-                    new Node("Leaf 1", 3),
-                    new Node("Leaf 2", 3)
-                ]),
-                new Node("Skype Back End", 2)
-            ])
-        ];
-    }
-
-    var vm = new ViewModel();
-    ko.applyBindings(vm);
+    var sh = new Shmindex();
+    console.log(sh.flatData);
 
 </script>
 

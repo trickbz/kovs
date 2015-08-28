@@ -74,3 +74,7 @@ img.toggleImage {
     color: #808080;
     font-size: 11pt;
 }
+
+#checkboxes {
+    margin: 10px;
+}

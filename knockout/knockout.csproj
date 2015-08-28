@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="models\revenueForecastComputedMetric.js" />
+    <Content Include="scripts\shmindex.js" />
     <Content Include="styles\bootstrap-theme.css" />
     <Content Include="styles\bootstrap-theme.min.css" />
     <Content Include="styles\bootstrap.css" />

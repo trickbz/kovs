@@ -26,8 +26,9 @@
                 var metricName = self.metrics()[i].name;
                 var metricComptutedValues = [0, 0, 0, 0, 0, 0];
                 metricComptutedValues = self.SumRootChidlrenArrays(self, metricComptutedValues, metricName);
-                resultMetrics.push(new RevenueForecastComputedMetric(self.metrics()[i].caption, metricComptutedValues));
+                resultMetrics.push(new RevenueForecastComputedMetric(metricName, self.metrics()[i].caption, metricComptutedValues));
             }
+            debugger;
             return resultMetrics;
         });
 
