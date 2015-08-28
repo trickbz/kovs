@@ -20,7 +20,7 @@
             model.opportunity = {
                 id: model.account.id + opportunityIdPrefix + opportunityIndex,
                 name: opportunities[opportunityIndex],
-                probability: i % 3 ? 70 : 90
+                probability: i % 3 ? 85 : 91
             };
 
             model.data = {
