@@ -66,9 +66,35 @@
     </script>
 
     <script type="text/javascript">
+        var helper = new RevenueForecastHelper();
+        var metricsData = helper.jsonToVmTree();
+        //console.log(helper.probabilityRanges);
 
-        var metricsData = new RevenueForecastHelper().jsonToVmTree();
-        console.table(metricsData);
+        var objects = [
+            { probability: 80, name: "Skype1", id: "id1" },
+            { probability: 99, name: "Skype2", id: "id2" },
+            { probability: 91, name: "Skype3", id: "id3" },
+            { probability: 100, name: "Skype4", id: "id4" },
+            { probability: 85, name: "Skype5", id: "id5" }
+        ];
+
+        var groupped =
+            _.chain(objects)
+            .groupBy(function (obj) {
+                return obj.probability >= 90 ? "90...100%" : "0...89%";
+            })
+            .map(function (value, key) {
+                //debugger;
+                return {
+                    
+                    name: key,
+                    value: value
+                };
+            })
+            .value();
+        //console.log(groupped);
+
+        //console.table(metricsData);
         ko.applyBindings(new RevenueForecastVm());
 
     </script>
