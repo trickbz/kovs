@@ -66,35 +66,37 @@ var Shmindex = (function () {
             return self.getProbabilityCategoryCaption(item.opportunity.probability);
         });
 
-        for (var propProbability in grouppedByProbCategory) {
+        for (var keyProbability in grouppedByProbCategory) {
 
-            if (grouppedByProbCategory.hasOwnProperty(propProbability)) {
-
-                if (propProbability === "undefined") {
+            if (grouppedByProbCategory.hasOwnProperty(keyProbability)) {
+                // skip rows with probability value which doesn't fall
+                // in probability categories we are not interested in
+                if (keyProbability === "undefined") {
                     continue;
                 }
-                
-                var nodeProbability = new TreeNode(propProbability, 1);
+
+                var nodeProbability = new TreeNode(keyProbability, 1);
                 nodeRoot.children.push(nodeProbability);
-                var groupProbability = grouppedByProbCategory[propProbability];
+                var groupProbability = grouppedByProbCategory[keyProbability];
                 var grouppedByAccount = _.groupBy(groupProbability, function (item) {
                     return item.account.name;
                 });
 
-                for (var propAccount in grouppedByAccount) {
-                    if (grouppedByAccount.hasOwnProperty(propAccount)) {
-                        var nodeAccount = new TreeNode(propAccount, 2);
+                for (var keyAccount in grouppedByAccount) {
+                    if (grouppedByAccount.hasOwnProperty(keyAccount)) {
+                        var nodeAccount = new TreeNode(keyAccount, 2);
                         nodeProbability.children.push(nodeAccount);
-                        var groupAccount = grouppedByAccount[propAccount];
+                        var groupAccount = grouppedByAccount[keyAccount];
                         for (var i = 0; i < groupAccount.length; i++) {
                             var opportunity = groupAccount[i];
-                            var nodeOpportunity = new TreeNode(
-                                opportunity.opportunity.name,
-                                3,
-                                [],
-                                opportunity.opportunity.id,
-                                opportunity.opportunity.probability
-                            );
+                            var nodeOpportunity =
+                                new TreeNode(
+                                    opportunity.opportunity.name,
+                                    3,
+                                    [],
+                                    opportunity.opportunity.id,
+                                    opportunity.opportunity.probability
+                                );
                             nodeAccount.children.push(nodeOpportunity);
                         }
                         nodeAccount.children = _.sortBy(nodeAccount.children, "caption");
@@ -102,6 +104,8 @@ var Shmindex = (function () {
                 }
                 nodeProbability.children = _.sortBy(nodeProbability.children, "caption");
             }
+            nodeRoot.children = _.sortBy(nodeRoot.children, "caption");
+            nodeRoot.children.reverse();
         }
         return nodeRoot;
     }

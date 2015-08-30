@@ -5,9 +5,9 @@
 
         self.name = ko.observable(name);
         self.level = ko.observable(level);
-        self.children = ko.observableArray(children);
-        self.demand = ko.observableArray(demand || []);
-        self.supply = ko.observableArray(supply || []);
+        self.children = children;
+        self.demand = ko.observableArray(demand || [0, 0, 0, 0, 0, 0]);
+        self.supply = ko.observableArray(supply || [0, 0, 0, 0, 0, 0]);
         self.id = id;
         self.probability = probability;
 
@@ -28,7 +28,6 @@
                 metricComptutedValues = self.SumRootChidlrenArrays(self, metricComptutedValues, metricName);
                 resultMetrics.push(new RevenueForecastComputedMetric(metricName, self.metrics()[i].caption, metricComptutedValues));
             }
-            debugger;
             return resultMetrics;
         });
 
@@ -43,7 +42,7 @@
         });
 
         self.isLeaf = ko.pureComputed(function () {
-            return !self.children().length;
+            return !self.children.length;
         });
 
         self.toggleImage = ko.pureComputed(function () {
@@ -54,18 +53,21 @@
     }
 
     RevenueForecastNode.prototype.SumRootChidlrenArrays = function (tree, resultArray, propertyName) {
-        if (tree.children().length === 0) {
+        if (tree.children.length === 0) {
             return tree[propertyName]();
         }
 
-        for (var i = 0; i < tree.children().length; i++) {
-            var child = tree.children()[i];
+        for (var i = 0; i < tree.children.length; i++) {
+            var child = tree.children[i];
+            debugger;
             for (var j = 0; j < child[propertyName]().length; j++) {
+                console.log("prop name: " + child[propertyName]());
                 var demandValue = child[propertyName]()[j];
                 resultArray[j] += demandValue;
             }
             this.SumRootChidlrenArrays(child, resultArray, propertyName);
         }
+        //console.log(resultArray);
         return resultArray;
     }
 
@@ -77,15 +79,15 @@
 
     RevenueForecastNode.prototype.expandChildren = function () {
         this.isExpanded(true);
-        for (var i = 0; i < this.children().length; i++) {
-            this.children()[i].expandChildren();
+        for (var i = 0; i < this.children.length; i++) {
+            this.children[i].expandChildren();
         }
     };
 
     RevenueForecastNode.prototype.collapseChildren = function () {
         this.isExpanded(false);
-        for (var i = 0; i < this.children().length; i++) {
-            this.children()[i].collapseChildren();
+        for (var i = 0; i < this.children.length; i++) {
+            this.children[i].collapseChildren();
         }
     };
 
