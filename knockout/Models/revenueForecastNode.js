@@ -18,17 +18,13 @@
             });
             return gapValues;
         });
-
         
         self.table = ko.computed(function () {
             var resultMetrics = [];
-            for (var i = 0; i < self.metrics()().length; i++) {
-                var metric = self.metrics()()[i];
-                var metricComptutedValues = [0, 0, 0, 0, 0, 0];
-                metricComptutedValues = self.SumRootChidlrenArrays(self, metricComptutedValues, metric.name);
+            _.each(self.metrics()(), function(metric) {
+                var metricComptutedValues = self.SumRootChidlrenArrays(self, [0, 0, 0, 0, 0, 0], metric.name);
                 resultMetrics.push(new RevenueForecastComputedMetric(metric.name, metric.caption, metricComptutedValues));
-            }
-            
+            });
             return resultMetrics;
         });
 
@@ -57,10 +53,10 @@
         if (tree.children().length === 0) {
             return tree[propertyName]();
         }
+
         for (var i = 0; i < tree.children().length; i++) {
             var child = tree.children()[i];
             for (var j = 0; j < child[propertyName]().length; j++) {
-                console.log("prop name: " + child[propertyName]());
                 var demandValue = child[propertyName]()[j];
                 resultArray[j] += demandValue;
             }
@@ -71,20 +67,20 @@
 
     RevenueForecastNode.prototype.expandChildren = function () {
         this.isExpanded(true);
-        for (var i = 0; i < this.children().length; i++) {
-            this.children()[i].expandChildren();
-        }
+        _.each(this.children(), function(item) {
+            item.expandChildren();
+        });
     };
 
     RevenueForecastNode.prototype.collapseChildren = function () {
         this.isExpanded(false);
-        for (var i = 0; i < this.children().length; i++) {
-            this.children()[i].collapseChildren();
-        }
+        _.each(this.children(), function (item) {
+            item.collapseChildren();
+        });
     };
 
     RevenueForecastNode.prototype.groupCaptionIndention = function() {
-        return (this.level()) + "em";
+        return this.level() + "em";
     };
 
     RevenueForecastNode.prototype.toggleOpen = function () {
