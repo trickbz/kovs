@@ -1,10 +1,9 @@
 ﻿var RevenueForecastVm = (function () {
 
-    function RevenueForecastVm(metricsData, probabilityCategories) {
+    function RevenueForecastVm(metricsData, metrics) {
         var self = this;
         self.metricsData = metricsData || new RevenueForecastCtrl().getVmTreeMockup();
-        self.metrics = probabilityCategories;
-        //self.metrics = self.metricsData[0].metrics;
+        self.metrics = ko.observableArray(metrics);
         self.tree = ko.observableArray(self.metricsData);
         self.startDate = ko.pureComputed(function () {
             return moment().startOf("quarter").toDate();

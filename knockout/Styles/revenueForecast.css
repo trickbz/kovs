@@ -10,17 +10,28 @@
     padding: 15px 10px;
 }
 
+.group-row-header {
+    overflow: hidden;
+    width: 100%;
+    padding: 0 10px;
+}
+
 .group-panel {
     width: 200px;
     float: left;
     height: 100%;
 }
 
+.group-table-container-header {
+    overflow: hidden;
+}
+
 .group-table-container {
     overflow: hidden;
 }
 
-    .group-table-container > table {
+    .group-table-container > table,
+    .group-table-container-header > table {
         border-collapse: collapse;
         width: 100%;
         table-layout: fixed;
@@ -34,12 +45,14 @@
         border-top: 1px solid #d8d6d6;
     }
 
-    .group-table-container table td {
+    .group-table-container table td,
+    .group-table-container-header table td {
         padding: 5px 5px;
         text-align: right;
     }
 
-        .group-table-container table td.name-column {
+        .group-table-container table td.name-column,
+        .group-table-container-header table td.name-column {
             width: 150px;
             text-align: left;
             color: #808080;
@@ -54,7 +67,7 @@
 
 .revenueForecastTableDiv {
     font-family: Arial;
-    margin: 10px;
+    margin: 0 10px;
 }
 
 img.toggleImage {
